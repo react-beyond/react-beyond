@@ -4,13 +4,13 @@
 //   "_tw=\"([^\"]*)"
 // ],
 
-import clsx from 'clsx'
+import clsx, { ClassValue } from 'clsx'
 import { createElement } from 'react'
 import { beyond } from 'react-beyond'
 
 declare module 'react' {
   interface Attributes {
-    'x-tw'?: string
+    'x-tw'?: ClassValue
   }
 }
 
