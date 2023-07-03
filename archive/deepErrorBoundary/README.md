@@ -1,4 +1,4 @@
-# @react-deephoc/@react-deephoc/errorboundary
+# @react-beyond/@react-beyond/errorboundary
 
 deepErrorBoundary
 

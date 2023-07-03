@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/errorboundary",
-  "version": "1.0.0-beta.14",
-  "description": "React Beyond @react-beyond/errorboundary",
+  "name": "@react-beyond/transpose",
+  "version": "1.0.0-beta.1",
+  "description": "React Beyond @react-beyond/transpose",
   "type": "module",
-  "main": "deepErrorBoundary.js",
+  "main": "transpose.js",
   "exports": {
-    ".": "./deepErrorBoundary.js"
+    ".": "./transpose.js"
   },
   "files": [
     "**/*.js",
@@ -29,9 +29,6 @@
     "url": "https://github.com/react-beyond/react-beyond/issues"
   },
   "homepage": "https://github.com/react-beyond/react-beyond#readme",
-  "dependencies": {
-    "react-error-boundary": "^4.0.10"
-  },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-beyond": "^1.0.0-beta",

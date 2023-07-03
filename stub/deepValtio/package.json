@@ -1,7 +1,7 @@
 {
-  "name": "@react-deephoc/valtio",
+  "name": "@react-beyond/valtio",
   "version": "1.0.0-beta.0",
-  "description": "React Deep HOC @react-deephoc/valtio",
+  "description": "React Deep HOC @react-beyond/valtio",
   "type": "module",
   "main": "deepValtio.js",
   "exports": {
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react-deephoc/react-deephoc.git"
+    "url": "git+https://github.com/react-beyond/react-beyond.git"
   },
   "keywords": [
     "react",
@@ -26,12 +26,12 @@
   "author": "sarimarton@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/react-deephoc/react-deephoc/issues"
+    "url": "https://github.com/react-beyond/react-beyond/issues"
   },
-  "homepage": "https://github.com/react-deephoc/react-deephoc#readme",
+  "homepage": "https://github.com/react-beyond/react-beyond#readme",
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
-    "react-deephoc": "^1.0.0-beta",
+    "react-beyond": "^1.0.0-beta",
     "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
   },
   "publishConfig": {

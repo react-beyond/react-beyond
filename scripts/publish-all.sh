@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Blacklist directories
-blacklist=("deepValtio" "deepState")
+# blacklist=("deepValtio" "deepState")
+blacklist=()
 
 npx tsc
 
@@ -10,7 +11,7 @@ npm version prerelease --preid=beta --no-git-tag-version
 npm publish
 
 # Define the directory containing the packages
-PACKAGE_DIR="./hocs"
+PACKAGE_DIR="./gallery"
 
 # Find all the package.json files in the package directory and its subdirectories
 for package in $(find "$PACKAGE_DIR" -name 'package.json')

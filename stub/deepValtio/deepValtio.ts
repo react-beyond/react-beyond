@@ -1,7 +1,6 @@
-import { deepHoc } from 'react-deephoc'
 
 export function deepValtio(WrappedComponent) {
-  return deepHoc(WrappedComponent, {
+  return beyond(WrappedComponent, {
     id: 'deepValtio',
     invokeRender(Cmp, props, ref) {}
   })

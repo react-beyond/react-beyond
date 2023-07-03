@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/errorboundary",
-  "version": "1.0.0-beta.14",
-  "description": "React Beyond @react-beyond/errorboundary",
+  "name": "@react-beyond/menu",
+  "version": "1.0.0-beta.1",
+  "description": "React Beyond @react-beyond/menu",
   "type": "module",
-  "main": "deepErrorBoundary.js",
+  "main": "menu.js",
   "exports": {
-    ".": "./deepErrorBoundary.js"
+    ".": "./menu.js"
   },
   "files": [
     "**/*.js",
@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/react-beyond/react-beyond#readme",
   "dependencies": {
-    "react-error-boundary": "^4.0.10"
+    "react-laag": "^2.0.5"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",

@@ -1,4 +1,4 @@
-# @react-deephoc/@react-deephoc/state
+# @react-beyond/@react-beyond/state
 
 deepState
 

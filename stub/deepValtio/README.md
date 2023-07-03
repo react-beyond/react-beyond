@@ -1,4 +1,4 @@
-# @react-deephoc/@react-deephoc/valtio
+# @react-beyond/@react-beyond/valtio
 
 deepValtio
 

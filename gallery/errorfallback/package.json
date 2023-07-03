@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/errorboundary",
-  "version": "1.0.0-beta.14",
-  "description": "React Beyond @react-beyond/errorboundary",
+  "name": "@react-beyond/errorfallback",
+  "version": "1.0.0-beta.1",
+  "description": "React Beyond @react-beyond/errorfallback",
   "type": "module",
-  "main": "deepErrorBoundary.js",
+  "main": "errorfallback.js",
   "exports": {
-    ".": "./deepErrorBoundary.js"
+    ".": "./errorfallback.js"
   },
   "files": [
     "**/*.js",

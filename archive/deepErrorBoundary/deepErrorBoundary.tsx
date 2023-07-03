@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react'
-import { $deephocInfo, deepHoc } from 'react-deephoc'
+import { $$beyondInfo } from 'react-beyond'
 import { ErrorBoundary } from 'react-error-boundary'
 
 declare module 'react' {
@@ -32,7 +32,7 @@ const factoryDefaultFallback = (name: string) => (
 export const deepErrorBoundary =
   (opts: Opts = {}) =>
   (WrappedComponent: FC) => {
-    return deepHoc(WrappedComponent, {
+    return beyond(WrappedComponent, {
       id: opts.id || 'errorBoundary',
       mapElement: (el) => {
         if (typeof el.type === 'string') {
@@ -46,7 +46,7 @@ export const deepErrorBoundary =
           return el
         }
 
-        const name = el.type?.[$deephocInfo]?.baseName || el.type.name
+        const name = el.type?.[$$beyondInfo]?.baseName || el.type.name
 
         const { [prop]: omitted, ...props } = el.props
         const ref = el.ref

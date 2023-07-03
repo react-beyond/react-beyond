@@ -1,7 +1,7 @@
 {
   "name": "react-beyond",
-  "version": "1.0.0-beta.0",
-  "description": "Recursive higher-order components for React",
+  "version": "1.0.0-beta.1",
+  "description": "Reaching beyond component boundaries",
   "keywords": [
     "react",
     "deep",

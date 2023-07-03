@@ -8,6 +8,6 @@
     "lib": ["dom", "esnext"],
     "skipLibCheck": false
   },
-  "include": ["lib/**/*.ts", "hocs/**/*.ts", "hocs/**/*.tsx"],
+  "include": ["lib/**/*.ts", "gallery/**/*.ts", "gallery/**/*.tsx"],
   "exclude": ["node_modules"]
 }

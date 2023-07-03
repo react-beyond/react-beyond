@@ -1,5 +1,5 @@
-import { $deephocInfo, deepHoc } from 'react-deephoc'
-import { createElement, useCallback, FC, ReactNode } from 'react'
+import { FC, createElement, useCallback } from 'react'
+import { $$beyondInfo } from 'react-beyond'
 
 const factoryDefaultFallback = (name: string) =>
   createElement(
@@ -26,7 +26,7 @@ type Opts = {
 export const deepTryCatch =
   (opts: Opts = {}) =>
   (WrappedComponent: FC) => {
-    return deepHoc(WrappedComponent, {
+    return beyond(WrappedComponent, {
       id: opts.id || 'deepTryCatch',
       invokeRender: (render, props, ref) => {
         const prop = 'x-error-fallback'
@@ -43,7 +43,7 @@ export const deepTryCatch =
         } catch (error) {
           console.error(error)
 
-          const name = render?.[$deephocInfo]?.baseName || render.name
+          const name = render?.[$$beyondInfo]?.baseName || render.name
 
           const defaultFallback =
             typeof opts.defaultFallback === 'function'

@@ -1,4 +1,4 @@
-# @react-deephoc/@react-deephoc/trycatch
+# @react-beyond/@react-beyond/trycatch
 
 deepTryCatch
 

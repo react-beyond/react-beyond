@@ -1,7 +1,7 @@
 {
-  "name": "@react-deephoc/trycatch",
+  "name": "@react-beyond/trycatch",
   "version": "1.0.0-beta.14",
-  "description": "React Deephoc @react-deephoc/trycatch",
+  "description": "React Beyond @react-beyond/trycatch",
   "type": "module",
   "main": "deepTryCatch.js",
   "exports": {
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react-deephoc/react-deephoc.git"
+    "url": "git+https://github.com/react-beyond/react-beyond.git"
   },
   "keywords": [
     "react",
@@ -26,15 +26,15 @@
   "author": "sarimarton@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/react-deephoc/react-deephoc/issues"
+    "url": "https://github.com/react-beyond/react-beyond/issues"
   },
-  "homepage": "https://github.com/react-deephoc/react-deephoc#readme",
+  "homepage": "https://github.com/react-beyond/react-beyond#readme",
   "dependencies": {
-    "@react-deephoc/errorboundary": "^1.0.0-beta"
+    "@react-beyond/errorboundary": "^1.0.0-beta"
   },
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
-    "react-deephoc": "^1.0.0-beta",
+    "react-beyond": "^1.0.0-beta",
     "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
   },
   "publishConfig": {

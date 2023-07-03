@@ -1,2 +1,3 @@
-# react-deephoc
-Deep HOC for React
+# react-beyond
+
+Reaching beyond component boundaries

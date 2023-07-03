@@ -20,7 +20,7 @@ do
   folder_name=$(echo "$folder_name" | tr '[:upper:]' '[:lower:]')
 
   # Create the package name
-  package_name="@react-deephoc/$folder_name"
+  package_name="@react-beyond/$folder_name"
 
   # Create the paths for the new package.json and README.md files
   package_file_path="$dir/package.json"

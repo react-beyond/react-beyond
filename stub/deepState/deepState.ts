@@ -5,12 +5,11 @@ import {
   useLayoutEffect,
   useRef
 } from 'react'
-import { deepHoc } from 'react-deephoc'
 
 export function deepState(WrappedComponent, initialState, id) {
   const _id = `state-${id}`
 
-  return deepHoc(WrappedComponent, {
+  return beyond(WrappedComponent, {
     id: _id,
     mapElement: (el) => {
       if (typeof el.type === 'string' || el.type === Fragment) {
