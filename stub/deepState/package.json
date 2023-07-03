@@ -1,0 +1,40 @@
+{
+  "name": "@react-deephoc/state",
+  "version": "1.0.0-beta.0",
+  "description": "React Deephoc @react-deephoc/state",
+  "type": "module",
+  "main": "deepState.js",
+  "exports": {
+    ".": "./deepState.js"
+  },
+  "files": [
+    "**/*.js",
+    "**/*.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-deephoc/react-deephoc.git"
+  },
+  "keywords": [
+    "react",
+    "deep",
+    "hoc"
+  ],
+  "author": "sarimarton@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/react-deephoc/react-deephoc/issues"
+  },
+  "homepage": "https://github.com/react-deephoc/react-deephoc#readme",
+  "peerDependencies": {
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "react-deephoc": "^1.0.0-beta",
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,1 +1,2 @@
-# react-beyond
+# react-deephoc
+Deep HOC for React

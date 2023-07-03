@@ -1,0 +1,59 @@
+{
+  "name": "react-beyond",
+  "version": "1.0.0-beta.0",
+  "description": "Recursive higher-order components for React",
+  "keywords": [
+    "react",
+    "deep",
+    "directive",
+    "hoc"
+  ],
+  "homepage": "https://github.com/react-beyond/react-beyond#readme",
+  "bugs": {
+    "url": "https://github.com/react-beyond/react-beyond/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-beyond/react-beyond.git"
+  },
+  "license": "ISC",
+  "author": "sarimarton@gmail.com",
+  "type": "module",
+  "exports": {
+    ".": "./lib/react-beyond.js",
+    "./plugin/vite": "./lib/plugin/vite-react-beyond.js"
+  },
+  "main": "lib/react-beyond.js",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clear": "find . -name 'node_modules' -type d -prune -exec rm -rf {} \\; && find . -type f \\( -name '*.d.ts' -o -name '*.js' -o -name 'package-lock.json' -o -name 'pnpm-lock.yaml' \\) -exec rm -f {} \\;",
+    "xprepublishOnly": "npm run build || true",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.40.2",
+    "@types/estree": "^1.0.1",
+    "@types/json-schema": "^7.0.12",
+    "@types/prettier": "^2.7.3",
+    "@types/prop-types": "^15.7.5",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@types/scheduler": "^0.16.3",
+    "@types/semver": "^7.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.8",
+    "prettier-eslint": "^15.0.1",
+    "typescript": "^5.1.5"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  }
+}

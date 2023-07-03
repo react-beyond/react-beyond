@@ -1,0 +1,40 @@
+{
+  "name": "{{PACKAGE_NAME}}",
+  "version": "1.0.0",
+  "description": "React Deephoc {{PACKAGE_NAME}}",
+  "type": "module",
+  "main": "{{ORIGINAL_FOLDER_NAME}}.js",
+  "exports": {
+    ".": "./{{ORIGINAL_FOLDER_NAME}}.js"
+  },
+  "files": [
+    "**/*.js",
+    "**/*.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-deephoc/react-deephoc.git"
+  },
+  "keywords": [
+    "react",
+    "deep",
+    "hoc"
+  ],
+  "author": "sarimarton@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/react-deephoc/react-deephoc/issues"
+  },
+  "homepage": "https://github.com/react-deephoc/react-deephoc#readme",
+  "peerDependencies": {
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "react-deephoc": "^1.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

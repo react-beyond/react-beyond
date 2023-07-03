@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "NodeNext",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "skipLibCheck": false
+  },
+  "include": ["lib/**/*.ts", "hocs/**/*.ts", "hocs/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
