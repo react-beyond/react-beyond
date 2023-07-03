@@ -7,7 +7,7 @@ blacklist=()
 npx tsc
 
 # Publish the main package
-npm version prerelease --preid=beta --no-git-tag-version
+# npm version prerelease --preid=beta --no-git-tag-version
 npm publish
 
 # Define the directory containing the packages
