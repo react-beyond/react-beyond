@@ -339,13 +339,13 @@ export function beyond<FC extends ComponentType>(
  *     <App />
  *   </Beyonds>
  */
-export function Beyond(props: { children: ReactNode; hocs: Function[] }) {
+export function Beyond(props: { children: ReactNode; features: Function[] }) {
   let Children = function Children() {
     return props.children
   }
 
-  for (const hoc of props.hocs) {
-    Children = hoc(Children)
+  for (const feature of props.features) {
+    Children = feature(Children)
   }
 
   return createElement(Children)
