@@ -17,7 +17,9 @@ export const $$beyondInfo = Symbol('beyond-info')
 
 const memoType = memo(() => null)
 const forwardRefType = forwardRef(() => null)
-const portalType = createPortal(null, document.body)
+
+// We can't use document here, because it's not available during SSR
+// const portalType = createPortal(null, document.body)
 
 // Map from wrapped component to hoc
 const cache = new Map()
@@ -65,8 +67,7 @@ function applyHocToVdom(opts: BeyondOptions) {
       return element.map(applyHocToVdom(opts))
     }
 
-    // @ts-ignore
-    if (element?.$$typeof === portalType.$$typeof) {
+    if (String(element?.$$typeof) === 'Symbol(react.portal)') {
       return createPortal(
         React.Children.map(element.children, applyHocToVdom(opts)),
         element.containerInfo,
