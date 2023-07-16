@@ -9,7 +9,8 @@ import React, {
   Ref,
   createElement,
   forwardRef,
-  memo
+  memo,
+  useCallback
 } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -89,7 +90,22 @@ function applyHocToVdom(opts: BeyondOptions) {
       beyondInfo = beyondInfo.wrappedComponent[$$beyondInfo]
     }
 
-    let childrenWithHoc = applyHocToVdom(opts)(element.props.children)
+    let childrenWithHoc
+
+    // This is intentionally undocumented. Beyond handles the mapping and
+    // reference caching well, but we can run into edges cases in the future
+    // where we want to rely on React.Children.map to generate automatic keys. I
+    // haven't encounter such a case yet, but this switch still might make sense
+    // to keep around.
+    // @ts-expect-error
+    if (opts.useReactChildrenMap) {
+      childrenWithHoc = React.Children.map(
+        element.props.children,
+        applyHocToVdom(opts)
+      )
+    } else {
+      childrenWithHoc = applyHocToVdom(opts)(element.props.children)
+    }
 
     if (opts.mapChildren) {
       childrenWithHoc = opts.mapChildren(childrenWithHoc)
@@ -182,16 +198,25 @@ function invokeRender(render, optsInvokeRender, props, ref) {
   return render(props, ref)
 }
 
+/**
+ * The options for Beyond
+ */
 export type BeyondOptions = {
+  /** The id of the Beyond Feature */
   id: string
+  /** The function to invoke the render function */
   invokeRender?: (
     Cmp: FC,
     props: PropsWithChildren,
     ref?: Ref<any>
   ) => ReactElement
+  /** Function to map the component */
   mapComponent?: (Cmp: FC) => FC
+  /** Function to map the props */
   directiveProp?: string
+  /** Function to map the elements */
   mapElement?: (element: ReactElement, directiveValue?: any) => ReactElement
+  /** Function to map the children of elements */
   mapChildren?: (elements: ReactNode | ReactNode[]) => ReactElement[]
 }
 
@@ -341,15 +366,18 @@ export function beyond<FC extends ComponentType>(
  *   </Beyonds>
  */
 export function Beyond(props: { children: ReactNode; features: Function[] }) {
-  let Children = function Children() {
-    return props.children
-  }
+  let cmp = (props) => props.children
 
   for (const feature of props.features) {
-    Children = feature(Children)
+    cmp = feature(cmp)
   }
 
-  return createElement(Children)
+  // No need to add features to the deps array, as they're meant to be static by
+  // their nature, and in the most ergonomic inline usage the array has a new
+  // ref all the time: <Beyond features={[...]}>
+  const Wrapper = useCallback(cmp, [])
+
+  return createElement(Wrapper, null, props.children)
 }
 
 if (import.meta.hot && window.__BEYOND_GLOBAL__) {
