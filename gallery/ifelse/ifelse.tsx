@@ -27,7 +27,7 @@ declare module 'react' {
 type Opts = {
   /**
    * The id of the hoc. Must be unique.
-   * @default 'deepIfElse'
+   * @default 'ifElse'
    */
   id?: string
 }
@@ -92,7 +92,7 @@ export const ifElse =
           if (Object.hasOwn(el.props, 'x-else')) {
             if (state === 'idle') {
               throw new Error(
-                '"deepIfElse: x-else" found on an element, but the previous element has no "x-if" or "x-else-if"'
+                '"ifElse: x-else" found on an element, but the previous element has no "x-if" or "x-else-if"'
               )
             } else {
               result.push(state === 'if-false' ? newEl : <></>)

@@ -16,7 +16,7 @@ declare module 'react' {
 type Opts = {
   /**
    * The id of the hoc. Must be unique.
-   * @default 'deepClsx'
+   * @default 'clsx'
    */
   id?: string
 }

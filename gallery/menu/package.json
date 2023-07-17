@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/menu",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.9",
   "description": "React Beyond @react-beyond/menu",
   "type": "module",
   "main": "menu.js",
@@ -20,7 +20,7 @@
   },
   "keywords": [
     "react",
-    "deep",
+    "react-beyond",
     "hoc"
   ],
   "author": "sarimarton@gmail.com",

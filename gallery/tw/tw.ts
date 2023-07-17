@@ -1,7 +1,7 @@
 // Don't forget to add to your VSCode settings:
 
 // "tailwindCSS.experimental.classRegex": [
-//   "_tw=\"([^\"]*)"
+//   "x-tw=\"([^\"]*)"
 // ],
 
 import clsx, { ClassValue } from 'clsx'

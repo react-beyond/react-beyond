@@ -38,7 +38,7 @@ type Opts = {
    *   }
    * }
    * ```
-   * Or you can use the deepClsx hoc, which provides an `x-clsx` directive with
+   * Or you can use the clsx feature, which provides an `x-clsx` directive with
    * clsx typing.
    *
    * @default false

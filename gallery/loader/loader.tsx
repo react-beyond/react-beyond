@@ -81,7 +81,7 @@ const DisplayDetector = ({
 type Opts = {
   /**
    * The id of the hoc. Must be unique.
-   * @default 'deepLoader'
+   * @default 'loader'
    */
   id?: string
 
