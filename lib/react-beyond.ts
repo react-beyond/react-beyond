@@ -37,10 +37,11 @@ export type BeyondOptions = {
 
   /**
    * Strategy to avoid the "Each child in a list should have a unique "key"
-   * prop.". The base problem is that React element children are array-ified by
-   * the time Beyond maps the elements.
+   * prop." issues. This is an under-the-hood option, and all of them work fine.
+   * Set it for experimental purposes. The base problem is that React children
+   * are array-ified by the time Beyond maps the elements.
    * @default 'flatAndSpread'
-   * - 'ReactChildrenMap': Uses the React.Children.map API to map the children.
+   * - 'reactChildrenMap': Uses the React.Children.map API to map the children.
    *   This is probably the "reference" solution, generating automatic keys, but
    *   it pollutes the devtools inspector.
    * - 'flatAndSpread': Flatten the children array and spread it into
@@ -49,15 +50,15 @@ export type BeyondOptions = {
    *   so we need to flatten it as well. (React knows that those cases are okay
    *   by marking the children earlier with _store: { validated: true } - see
    *   "validatedFlag"). This is a user land solution, and it seems to work
-   *   well.
+   *   well. It doesn't prevent warnings in case of legitimate key issues.
    * - validatedFlag: Add a _store: { validated: true } marker to the elements.
    *   This is the simplest and probably the closest way to how React handles
    *   it, but it is an internal API, so it's not really future-proof.
    */
-  _childrenKeyStrategy: 'reactChildrenMap' | 'flatAndSpread' | 'validatedFlag'
+  experimentalKeyStrategy?: 'reactChildrenMap' | 'flatAndSpread' | 'validatedFlag'
 }
 
-const defaultChildrenKeyStrategy: BeyondOptions['_childrenKeyStrategy'] =
+const defaultChildrenKeyStrategy: BeyondOptions['experimentalKeyStrategy'] =
   'flatAndSpread'
 
 export const $$beyondInfo = Symbol('beyond-info')
@@ -103,8 +104,8 @@ function isClassComponent(
 }
 
 function applyHocToVdom(opts: BeyondOptions) {
-  const childrenKeyStrategy =
-    opts._childrenKeyStrategy || defaultChildrenKeyStrategy
+  const keyStrategy =
+    opts.experimentalKeyStrategy || defaultChildrenKeyStrategy
 
   return function (
     element: React.ReactElement<PropsWithChildren> | any
@@ -141,7 +142,7 @@ function applyHocToVdom(opts: BeyondOptions) {
 
     let childrenWithHoc
 
-    if (childrenKeyStrategy === 'reactChildrenMap') {
+    if (keyStrategy === 'reactChildrenMap') {
       const wasArray = Array.isArray(element.props.children)
 
       childrenWithHoc = React.Children.map(
@@ -159,7 +160,7 @@ function applyHocToVdom(opts: BeyondOptions) {
     if (opts.mapChildren) {
       childrenWithHoc = opts.mapChildren(childrenWithHoc)
 
-      if (childrenKeyStrategy === 'reactChildrenMap') {
+      if (keyStrategy === 'reactChildrenMap') {
         const wasArray = Array.isArray(childrenWithHoc)
 
         childrenWithHoc = React.Children.map(childrenWithHoc, (x) => x)
@@ -167,7 +168,7 @@ function applyHocToVdom(opts: BeyondOptions) {
         if (!wasArray && Array.isArray(childrenWithHoc)) {
           childrenWithHoc = childrenWithHoc[0]
         }
-      } else if (childrenKeyStrategy === 'validatedFlag') {
+      } else if (keyStrategy === 'validatedFlag') {
         if (Array.isArray(childrenWithHoc)) {
           childrenWithHoc = childrenWithHoc.map(setValidatedFlag)
         } else {
@@ -179,7 +180,7 @@ function applyHocToVdom(opts: BeyondOptions) {
     let elWithHoc = React.cloneElement(
       element,
       element.props,
-      ...(childrenKeyStrategy === 'flatAndSpread'
+      ...(keyStrategy === 'flatAndSpread'
         ? [].concat(childrenWithHoc || []).flat()
         : [childrenWithHoc])
     )
@@ -200,7 +201,7 @@ function applyHocToVdom(opts: BeyondOptions) {
           ...(ref && { ref }),
           ...(key && { key })
         },
-        ...(childrenKeyStrategy === 'flatAndSpread'
+        ...(keyStrategy === 'flatAndSpread'
           ? [].concat(childrenWithHoc || []).flat()
           : [childrenWithHoc])
       )
@@ -244,7 +245,7 @@ function applyHocToVdom(opts: BeyondOptions) {
       )
     }
 
-    if (childrenKeyStrategy === 'validatedFlag') {
+    if (keyStrategy === 'validatedFlag') {
       elWithHoc = setValidatedFlag(elWithHoc)
     }
 
