@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/ifelse",
-  "version": "1.0.0-beta.11",
-  "description": "React Beyond @react-beyond/ifelse",
+  "name": "@react-beyond/lazyrender",
+  "version": "1.0.0-beta.20",
+  "description": "React Beyond @react-beyond/lazyrender",
   "type": "module",
-  "main": "ifelse.js",
+  "main": "lazyrender.jsx",
   "exports": {
-    ".": "./ifelse.js"
+    ".": "./lazyrender.jsx"
   },
   "files": [
     "**/*.js",
@@ -20,7 +20,7 @@
   },
   "keywords": [
     "react",
-    "deep",
+    "react-beyond",
     "hoc"
   ],
   "author": "sarimarton@gmail.com",
@@ -29,6 +29,7 @@
     "url": "https://github.com/react-beyond/react-beyond/issues"
   },
   "homepage": "https://github.com/react-beyond/react-beyond#readme",
+  "dependencies": {},
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-beyond": "^1.0.0-beta",

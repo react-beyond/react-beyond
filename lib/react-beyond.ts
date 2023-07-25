@@ -14,6 +14,52 @@ import React, {
 } from 'react'
 import { createPortal } from 'react-dom'
 
+/**
+ * The options for Beyond
+ */
+export type BeyondOptions = {
+  /** The id of the Beyond Feature */
+  id: string
+  /** The function to invoke the render function */
+  invokeRender?: (
+    Cmp: FC,
+    props: PropsWithChildren,
+    ref?: Ref<any>
+  ) => ReactElement
+  /** Function to map the component */
+  mapComponent?: (Cmp: FC) => FC
+  /** Function to map the props */
+  directiveProp?: string
+  /** Function to map the elements */
+  mapElement?: (element: ReactElement, directiveValue?: any) => ReactElement
+  /** Function to map the children of elements */
+  mapChildren?: (elements: ReactNode | ReactNode[]) => ReactElement[]
+
+  /**
+   * Strategy to avoid the "Each child in a list should have a unique "key"
+   * prop.". The base problem is that React element children are array-ified by
+   * the time Beyond maps the elements.
+   * @default 'flatAndSpread'
+   * - 'ReactChildrenMap': Uses the React.Children.map API to map the children.
+   *   This is probably the "reference" solution, generating automatic keys, but
+   *   it pollutes the devtools inspector.
+   * - 'flatAndSpread': Flatten the children array and spread it into
+   *   createElement. Spreading is enough most of the time, but when components
+   *   render {props.children} next to an element, that's an array in an array,
+   *   so we need to flatten it as well. (React knows that those cases are okay
+   *   by marking the children earlier with _store: { validated: true } - see
+   *   "validatedFlag"). This is a user land solution, and it seems to work
+   *   well.
+   * - validatedFlag: Add a _store: { validated: true } marker to the elements.
+   *   This is the simplest and probably the closest way to how React handles
+   *   it, but it is an internal API, so it's not really future-proof.
+   */
+  _childrenKeyStrategy: 'reactChildrenMap' | 'flatAndSpread' | 'validatedFlag'
+}
+
+const defaultChildrenKeyStrategy: BeyondOptions['_childrenKeyStrategy'] =
+  'flatAndSpread'
+
 export const $$beyondInfo = Symbol('beyond-info')
 
 const memoType = memo(() => null)
@@ -57,6 +103,9 @@ function isClassComponent(
 }
 
 function applyHocToVdom(opts: BeyondOptions) {
+  const childrenKeyStrategy =
+    opts._childrenKeyStrategy || defaultChildrenKeyStrategy
+
   return function (
     element: React.ReactElement<PropsWithChildren> | any
   ): React.ReactElement {
@@ -92,37 +141,47 @@ function applyHocToVdom(opts: BeyondOptions) {
 
     let childrenWithHoc
 
-    // This is intentionally undocumented. Beyond handles the mapping and
-    // reference caching well, but we can run into edges cases in the future
-    // where we want to rely on React.Children.map to generate automatic keys. I
-    // haven't encounter such a case yet, but this switch still might make sense
-    // to keep around.
-    // @ts-expect-error
-    if (opts.useReactChildrenMap) {
+    if (childrenKeyStrategy === 'reactChildrenMap') {
+      const wasArray = Array.isArray(element.props.children)
+
       childrenWithHoc = React.Children.map(
         element.props.children,
         applyHocToVdom(opts)
       )
+
+      if (!wasArray && Array.isArray(childrenWithHoc)) {
+        childrenWithHoc = childrenWithHoc[0]
+      }
     } else {
       childrenWithHoc = applyHocToVdom(opts)(element.props.children)
     }
 
     if (opts.mapChildren) {
       childrenWithHoc = opts.mapChildren(childrenWithHoc)
+
+      if (childrenKeyStrategy === 'reactChildrenMap') {
+        const wasArray = Array.isArray(childrenWithHoc)
+
+        childrenWithHoc = React.Children.map(childrenWithHoc, (x) => x)
+
+        if (!wasArray && Array.isArray(childrenWithHoc)) {
+          childrenWithHoc = childrenWithHoc[0]
+        }
+      } else if (childrenKeyStrategy === 'validatedFlag') {
+        if (Array.isArray(childrenWithHoc)) {
+          childrenWithHoc = childrenWithHoc.map(setValidatedFlag)
+        } else {
+          childrenWithHoc = setValidatedFlag(childrenWithHoc)
+        }
+      }
     }
 
     let elWithHoc = React.cloneElement(
       element,
       element.props,
-      // Need to spread one level in order to reproduce the original usage.
-      // Otherwise "Each child in a list should have a unique "key" prop."
-      // warnings pop up all around, because element.props.children is already
-      // array-ified by the pragma (if there are multiple child nodes). An
-      // alternative would be ...(childrenWithHoc || []) which would need
-      // childrenWithHoc = React.Children.map(element.props.children,
-      // applyHocToVdom(opts)) above, but React.Children.map pollutes the tree
-      // with generated keys.
-      ...[].concat(childrenWithHoc || [])
+      ...(childrenKeyStrategy === 'flatAndSpread'
+        ? [].concat(childrenWithHoc || []).flat()
+        : [childrenWithHoc])
     )
 
     // @ts-ignore
@@ -141,18 +200,19 @@ function applyHocToVdom(opts: BeyondOptions) {
           ...(ref && { ref }),
           ...(key && { key })
         },
-        // Need to spread one level for the same reason as above
-        ...[].concat(childrenWithHoc || [])
+        ...(childrenKeyStrategy === 'flatAndSpread'
+          ? [].concat(childrenWithHoc || []).flat()
+          : [childrenWithHoc])
       )
     }
 
     // Handle directives
     const directiveValues = []
+    let directivePropPresent = false
 
     if (opts.directiveProp) {
       const directiveProps = [].concat(opts.directiveProp)
       let propsWithoutDirective = elWithHoc.props
-      let directivePropPresent = false
       let omit
 
       for (const directiveProp of directiveProps) {
@@ -164,18 +224,16 @@ function applyHocToVdom(opts: BeyondOptions) {
         }
       }
 
-      if (!directivePropPresent) {
-        return elWithHoc
+      if (directivePropPresent) {
+        elWithHoc = React.createElement(elWithHoc.type, {
+          ...propsWithoutDirective,
+          ...(ref && { ref }),
+          ...(key && { key })
+        })
       }
-
-      elWithHoc = React.createElement(elWithHoc.type, {
-        ...propsWithoutDirective,
-        ...(ref && { ref }),
-        ...(key && { key })
-      })
     }
 
-    if (opts.mapElement) {
+    if (opts.mapElement && (!opts.directiveProp || directivePropPresent)) {
       elWithHoc = opts.mapElement(
         elWithHoc,
         ...(!opts.directiveProp
@@ -186,7 +244,25 @@ function applyHocToVdom(opts: BeyondOptions) {
       )
     }
 
+    if (childrenKeyStrategy === 'validatedFlag') {
+      elWithHoc = setValidatedFlag(elWithHoc)
+    }
+
     return elWithHoc
+  }
+}
+
+function setValidatedFlag(element: ReactElement) {
+  if (!React.isValidElement(element)) {
+    return element
+  }
+
+  return {
+    ...element,
+    _store: {
+      ...element._store,
+      validated: true
+    }
   }
 }
 
@@ -196,28 +272,6 @@ function invokeRender(render, optsInvokeRender, props, ref) {
   }
 
   return render(props, ref)
-}
-
-/**
- * The options for Beyond
- */
-export type BeyondOptions = {
-  /** The id of the Beyond Feature */
-  id: string
-  /** The function to invoke the render function */
-  invokeRender?: (
-    Cmp: FC,
-    props: PropsWithChildren,
-    ref?: Ref<any>
-  ) => ReactElement
-  /** Function to map the component */
-  mapComponent?: (Cmp: FC) => FC
-  /** Function to map the props */
-  directiveProp?: string
-  /** Function to map the elements */
-  mapElement?: (element: ReactElement, directiveValue?: any) => ReactElement
-  /** Function to map the children of elements */
-  mapChildren?: (elements: ReactNode | ReactNode[]) => ReactElement[]
 }
 
 /**

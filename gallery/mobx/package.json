@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/mobx",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.11",
   "description": "React Beyond @react-beyond/mobx",
   "type": "module",
   "main": "mobx.js",
