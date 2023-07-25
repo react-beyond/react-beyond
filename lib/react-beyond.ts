@@ -416,7 +416,7 @@ export function beyond<FC extends ComponentType>(
 
 /**
  * Use it like this:
- *   <Beyonds hocs={[deepClassFor, deepLoader, deepTryCatch]}>
+ *   <Beyonds features={[classFor(), loader(), errorFallback()]}>
  *     <App />
  *   </Beyonds>
  */
