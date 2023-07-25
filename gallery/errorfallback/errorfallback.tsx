@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, createElement, useCallback } from 'react'
+import React, { FC, ReactElement, createElement } from 'react'
 import { $$beyondInfo, beyond } from 'react-beyond'
 import { ErrorBoundary } from 'react-error-boundary'
 
@@ -145,11 +145,3 @@ export const errorFallback =
       }
     })
   }
-
-export const ErrorFallback = function ErrorFallback(props: Opts) {
-  const inner = useCallback(function ErrorFallback(props) {
-    return props.children
-  }, [])
-
-  return errorFallback(props)(inner)
-}

@@ -1,5 +1,5 @@
 import { transpose } from '@react-beyond/transpose'
-import { ReactElement, useCallback } from 'react'
+import { ReactElement } from 'react'
 
 declare module 'react' {
   interface Attributes {
@@ -22,11 +22,3 @@ export const tooltip = (opts: Opts) =>
     customDirective: 'x-tooltip',
     render: opts.render
   })
-
-export const Tooltip = function Tooltip(props: Opts) {
-  const inner = useCallback(function Tooltip(props) {
-    return props.children
-  }, [])
-
-  return tooltip(props)(inner)
-}

@@ -43,7 +43,3 @@ export const clsx =
       }
     })
   }
-
-export const Clsx = clsx()(function Clsx(props) {
-  return props.children
-})

@@ -97,7 +97,3 @@ export const classFor =
       }
     })
   }
-
-export const ClassFor = classFor()(function ClassFor(props) {
-  return props.children
-})

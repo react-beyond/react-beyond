@@ -110,7 +110,3 @@ export const ifElse =
       }
     })
   }
-
-export const IfElse = ifElse()(function IfElse(props) {
-  return props.children
-})

@@ -1,4 +1,4 @@
-import React, { ReactElement, createElement, useCallback } from 'react'
+import React, { ReactElement, createElement } from 'react'
 import { beyond } from 'react-beyond'
 
 declare module 'react' {
@@ -61,11 +61,3 @@ export const transpose =
       }
     })
   }
-
-export const Transpose = function Transpose(props: Opts) {
-  const inner = useCallback(function Transpose(props) {
-    return props.children
-  }, [])
-
-  return transpose(props)(inner)
-}

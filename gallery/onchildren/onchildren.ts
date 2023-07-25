@@ -51,7 +51,3 @@ export const onChildren =
       }
     })
   }
-
-export const OnChildren = onChildren()(function OnChildren(props) {
-  return props.children
-})

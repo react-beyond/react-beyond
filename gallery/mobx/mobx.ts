@@ -34,7 +34,3 @@ export const mobx =
       }
     })
   }
-
-export const Mobx = mobx()(function Mobx(props) {
-  return props.children
-})

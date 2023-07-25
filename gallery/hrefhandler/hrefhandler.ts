@@ -1,7 +1,4 @@
-import {
-  cloneElement,
-  useCallback
-} from 'react'
+import { cloneElement } from 'react'
 import { beyond } from 'react-beyond'
 
 declare module 'react' {
@@ -58,12 +55,4 @@ export const hrefHandler = (_opts: Opts) => (WrappedComponent) => {
       })
     }
   })
-}
-
-export const HrefHandler = function HrefHandler(props: Opts) {
-  const inner = useCallback(function HrefHandler(props) {
-    return props.children
-  }, [])
-
-  return hrefHandler(props)(inner)
 }

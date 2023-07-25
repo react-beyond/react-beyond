@@ -1,10 +1,5 @@
 import clsx from 'clsx'
-import React, {
-  forwardRef,
-  ReactElement,
-  useCallback,
-  useState
-} from 'react'
+import React, { forwardRef, ReactElement, useState } from 'react'
 import { beyond } from 'react-beyond'
 import { Arrow, useLayer, UseLayerProps } from 'react-laag'
 import { PlacementType } from 'react-laag/dist/PlacementType'
@@ -90,14 +85,14 @@ export const MenuComponent = forwardRef(function Menu(props: Props, ref) {
           style={{
             ...layer.layerProps?.style,
             width: 'auto',
-            zIndex: isOpen ? 1000 : -1,
+            zIndex: isOpen ? 10000 : -1,
             transitionProperty: 'opacity',
             transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             transitionDuration: '150ms',
             opacity: isOpen ? 1 : 0
           }}
         >
-          <div style={{ zIndex: 1000 }}>
+          <div style={{ zIndex: 10000 }}>
             <Body />
           </div>
           <Arrow {...layer.arrowProps} />
@@ -115,59 +110,53 @@ type Opts = {
   id?: string
 }
 
-export const menu = (opts: Opts = {}) => (WrappedComponent) => {
-  return beyond(WrappedComponent, {
-    id: opts.id || 'menu',
-    directiveProp: 'x-menu',
-    mapElement: (el, directiveValue) => {
-      if (!directiveValue) {
-        return el
+export const menu =
+  (opts: Opts = {}) =>
+  (WrappedComponent) => {
+    return beyond(WrappedComponent, {
+      id: opts.id || 'menu',
+      directiveProp: 'x-menu',
+      mapElement: (el, directiveValue) => {
+        if (!directiveValue) {
+          return el
+        }
+
+        const menu = directiveValue
+
+        const ref = el.ref
+        const key = el.key
+
+        const Cmp = el.type
+
+        const body = menu.body ?? menu
+        const placement = menu.placement
+
+        if (menu.enabled === false) {
+          return el
+        }
+
+        return (
+          <MenuComponent
+            {...(key && { key })}
+            renderTrigger={(triggerProps, open, onClick, ref) => {
+              return (
+                <Cmp
+                  {...el.props}
+                  {...(ref && { ref })}
+                  {...triggerProps}
+                  {...{
+                    onClick,
+                    className: clsx(el.props.className, open && 'active')
+                  }}
+                >
+                  {el.props.children}
+                </Cmp>
+              )
+            }}
+            body={body}
+            placement={placement}
+          />
+        )
       }
-
-      const menu = directiveValue
-
-      const ref = el.ref
-      const key = el.key
-
-      const Cmp = el.type
-
-      const body = menu.body ?? menu
-      const placement = menu.placement
-
-      if (menu.enabled === false) {
-        return el
-      }
-
-      return (
-        <MenuComponent
-          {...(key && { key })}
-          renderTrigger={(triggerProps, open, onClick, ref) => {
-            return (
-              <Cmp
-                {...el.props}
-                {...(ref && { ref })}
-                {...triggerProps}
-                {...{
-                  onClick,
-                  className: clsx(el.props.className, open && 'active')
-                }}
-              >
-                {el.props.children}
-              </Cmp>
-            )
-          }}
-          body={body}
-          placement={placement}
-        />
-      )
-    }
-  })
-}
-
-export const Menu = function Menu(props: Opts) {
-  const inner = useCallback(function Menu(props) {
-    return props.children
-  }, [])
-
-  return menu(props)(inner)
-}
+    })
+  }

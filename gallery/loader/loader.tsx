@@ -1,10 +1,4 @@
-import React, {
-  ReactElement,
-  useCallback,
-  useLayoutEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { ReactElement, useLayoutEffect, useRef, useState } from 'react'
 import { beyond } from 'react-beyond'
 
 declare module 'react' {
@@ -108,11 +102,3 @@ export const loader =
       }
     })
   }
-
-export const Loader = function Loader(props: Opts) {
-  const inner = useCallback(function Loader(props) {
-    return props.children
-  }, [])
-
-  return loader(props)(inner)
-}
