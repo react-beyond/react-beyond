@@ -1,10 +1,5 @@
 import clsx from 'clsx'
-import React, {
-  FC,
-  forwardRef,
-  ReactElement,
-  useState
-} from 'react'
+import React, { FC, forwardRef, ReactElement, useState } from 'react'
 import { beyond } from 'react-beyond'
 import { Arrow, useLayer, UseLayerProps } from 'react-laag'
 import { PlacementType } from 'react-laag/dist/PlacementType'
@@ -73,7 +68,7 @@ type Props = {
   body: ConfigObject['body']
 }
 
-const ArrowWithClass = (props) => {
+const getArrowWithClass = (layer) => (props) => {
   return (
     <Arrow
       // layer.arrowProps.ref causes an infinite render loop, would be good to
@@ -101,7 +96,7 @@ export const MenuComponent = forwardRef(function Menu(props: Props, ref) {
   const body = props.body
   const Body =
     typeof body === 'function'
-      ? () => body({ close, Arrow: ArrowWithClass })
+      ? () => body({ close, Arrow: getArrowWithClass(layer) })
       : () => body
 
   return (
