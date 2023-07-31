@@ -135,7 +135,7 @@ function applyHocToVdom(opts: BeyondOptions) {
       return element
     }
 
-    // Check if the element was already visited
+    // Check if the hoc is already applied, and bail out if so.
     let beyondInfo = element?.type?.[$$beyondInfo]
     while (beyondInfo) {
       if (beyondInfo.opts.id === opts.id) {
@@ -388,6 +388,9 @@ export function beyond<FC extends ComponentType>(
   // Fast refresh (HMR) support. It needs the react-beyond/plugin/vite to be
   // installed.
   if (import.meta.hot && window.__BEYOND_GLOBAL__) {
+    const beyondGlobal = window.__BEYOND_GLOBAL__
+    const isReapplication = beyondGlobal?.isReapplication
+
     // setTimeout is needed when the component imports come earlier than the
     // beyond import. E.g.: import App from "./App"; import { Beyonds } from
     // "react-beyond"; In this case, control gets here before the first
@@ -395,8 +398,6 @@ export function beyond<FC extends ComponentType>(
     // base component. As HMR registration is not crucial to be synchronous, so
     // we can defer it to work the problem around.
     setTimeout(() => {
-      const beyondGlobal = window.__BEYOND_GLOBAL__
-
       if (!beyondGlobal.cmpToIds) {
         console.error(
           "Beyond: Can't find the component/id map. Did you forget to install the react-beyond/plugin/vite plugin?"
@@ -412,7 +413,7 @@ export function beyond<FC extends ComponentType>(
 
         // If we're during an HMR HOC reapplication, skip re-adding to the HOC
         // stack
-        if (!beyondGlobal.isReapplication) {
+        if (!isReapplication) {
           const hocs = beyondGlobal.idToHocs.get(id)
           if (hocs) {
             hocs.push(info)
