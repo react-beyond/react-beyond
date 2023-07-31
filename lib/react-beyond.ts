@@ -28,6 +28,10 @@ export type BeyondOptions = {
   ) => ReactElement
   /** Function to map the component */
   mapComponent?: (Cmp: FC) => FC
+  // /** Function to map the render function (unwrapped from forwardRef/memo). It
+  //  * must return a function.
+  //  **/
+  // mapRender?: (Cmp: FC) => FC
   /** Function to map the props */
   directiveProp?: string
   /** Function to map the elements */
@@ -325,6 +329,15 @@ export function beyond<FC extends ComponentType>(
   }
 
   const hocRender = hoc
+
+  // if (opts.mapRender) {
+  //   hoc = opts.mapRender(hoc)
+  //   if (typeof hoc !== 'function') {
+  //     throw new Error(
+  //       `mapRender must return a function, but returned ${typeof hoc}`
+  //     )
+  //   }
+  // }
 
   // Re-wrap the render function in forwardRef and memo
   for (let i = wrappers.length - 1; i >= 0; i--) {

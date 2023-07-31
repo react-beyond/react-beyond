@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/mobx",
-  "version": "1.0.0-beta.13",
-  "description": "React Beyond @react-beyond/mobx",
+  "name": "@react-beyond/hoc",
+  "version": "1.0.0-beta.14",
+  "description": "React Beyond @react-beyond/hoc",
   "type": "module",
-  "main": "mobx.js",
+  "main": "hoc.js",
   "exports": {
-    ".": "./mobx.js"
+    ".": "./hoc.js"
   },
   "files": [
     "**/*.js",
@@ -29,9 +29,7 @@
     "url": "https://github.com/react-beyond/react-beyond/issues"
   },
   "homepage": "https://github.com/react-beyond/react-beyond#readme",
-  "dependencies": {
-    "mobx-react-lite": "^3.4.3"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-beyond": "^1.0.0-beta",

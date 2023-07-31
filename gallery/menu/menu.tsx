@@ -1,5 +1,10 @@
 import clsx from 'clsx'
-import React, { forwardRef, ReactElement, useState } from 'react'
+import React, {
+  FC,
+  forwardRef,
+  ReactElement,
+  useState
+} from 'react'
 import { beyond } from 'react-beyond'
 import { Arrow, useLayer, UseLayerProps } from 'react-laag'
 import { PlacementType } from 'react-laag/dist/PlacementType'
@@ -7,7 +12,12 @@ import { PlacementType } from 'react-laag/dist/PlacementType'
 type ConfigObject = {
   placement?: PlacementType
   enabled?: boolean
-  body: ReactElement | ((close: () => void) => ReactElement)
+  body:
+    | ReactElement
+    | ((params: {
+        close: () => void
+        Arrow: FC<{ class?: string; style?: React.CSSProperties }>
+      }) => ReactElement)
 }
 
 type Falsy = false | undefined | null
@@ -60,7 +70,23 @@ type Props = {
     onClick: () => void,
     ref: any
   ) => ReactElement
-  body: ReactElement | ((close: () => void) => ReactElement)
+  body: ConfigObject['body']
+}
+
+const ArrowWithClass = (props) => {
+  return (
+    <Arrow
+      // layer.arrowProps.ref causes an infinite render loop, would be good to
+      // know why
+      // {...layer.arrowProps}
+      layerSide={layer.arrowProps.layerSide}
+      className={props.class}
+      style={{
+        ...layer.arrowProps.style,
+        ...props.style
+      }}
+    />
+  )
 }
 
 export const MenuComponent = forwardRef(function Menu(props: Props, ref) {
@@ -74,7 +100,9 @@ export const MenuComponent = forwardRef(function Menu(props: Props, ref) {
 
   const body = props.body
   const Body =
-    typeof body === 'function' ? () => body(() => setOpen(false)) : () => body
+    typeof body === 'function'
+      ? () => body({ close, Arrow: ArrowWithClass })
+      : () => body
 
   return (
     <>
@@ -92,10 +120,7 @@ export const MenuComponent = forwardRef(function Menu(props: Props, ref) {
             opacity: isOpen ? 1 : 0
           }}
         >
-          <div style={{ zIndex: 10000 }}>
-            <Body />
-          </div>
-          <Arrow {...layer.arrowProps} />
+          <Body />
         </div>
       )}
     </>

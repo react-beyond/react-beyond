@@ -1,6 +1,6 @@
 {
   "name": "react-beyond",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.0-beta.14",
   "description": "Reaching beyond component boundaries",
   "keywords": [
     "react",
@@ -31,8 +31,8 @@
   "scripts": {
     "build": "tsc",
     "clear": "find . -name 'node_modules' -type d -prune -exec rm -rf {} \\; && find . -type f \\( -name '*.d.ts' -o -name '*.js' -o -name 'package-lock.json' -o -name 'pnpm-lock.yaml' \\) -exec rm -f {} \\;",
-    "xprepublishOnly": "npm run build || true",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "xprepublishOnly": "npm run build || true"
   },
   "devDependencies": {
     "@types/eslint": "^8.40.2",
