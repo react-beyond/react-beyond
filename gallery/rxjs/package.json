@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/rxjs",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.16",
   "description": "React Beyond @react-beyond/rxjs",
   "type": "module",
   "main": "rxjs.js",
