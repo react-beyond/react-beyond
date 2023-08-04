@@ -2,6 +2,7 @@
 
 # Blacklist directories
 # blacklist=("deepValtio" "deepState")
+blacklist=("menu")
 blacklist=()
 
 npx tsc

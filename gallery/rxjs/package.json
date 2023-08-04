@@ -1,11 +1,11 @@
 {
-  "name": "@react-beyond/hoc",
+  "name": "@react-beyond/rxjs",
   "version": "1.0.0-beta.15",
-  "description": "React Beyond @react-beyond/hoc",
+  "description": "React Beyond @react-beyond/rxjs",
   "type": "module",
-  "main": "hoc.js",
+  "main": "rxjs.js",
   "exports": {
-    ".": "./hoc.js"
+    ".": "./rxjs.js"
   },
   "files": [
     "**/*.js",
@@ -33,7 +33,8 @@
   "peerDependencies": {
     "react": "^16.0.0 || ^17.0.0 || ^18.0.0",
     "react-beyond": "^1.0.0-beta",
-    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0"
+    "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0",
+    "rxjs": "^6.0.0 || ^7.0.0"
   },
   "publishConfig": {
     "access": "public"

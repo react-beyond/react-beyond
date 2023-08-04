@@ -32,10 +32,25 @@ export type BeyondOptions = {
   //  * must return a function.
   //  **/
   // mapRender?: (Cmp: FC) => FC
-  /** Function to map the props */
-  directiveProp?: string
-  /** Function to map the elements */
+  /**
+   * Define directive props. This can be a string or array of string.
+   *
+   */
+  directiveProp?: string | string[]
+  /**
+   * Function to map the elements
+   * - If `directiveProp` is set, `mapElement` will only be called when any of
+   *   the directive props are set on the elements. `directiveValue` will hold
+   *   the props value, or prop values in case directiveProp is an array.
+   */
   mapElement?: (element: ReactElement, directiveValue?: any) => ReactElement
+  /**
+   * Function to map the JSX nodes. This is similar to mapElements,
+   * - If `directiveProp` is set, `mapElement` will only be called when any of
+   *   the directive props are set on the elements. `directiveValue` will hold
+   *   the props value, or prop values in case directiveProp is an array.
+   */
+  mapNode?: (node: unknown) => ReactElement
   /** Function to map the children of elements */
   mapChildren?: (elements: ReactNode | ReactNode[]) => ReactElement[]
 
@@ -114,6 +129,10 @@ function applyHocToVdom(opts: BeyondOptions) {
   return function (
     element: React.ReactElement<PropsWithChildren> | any
   ): React.ReactElement {
+    if (opts.mapNode) {
+      element = opts.mapNode(element)
+    }
+
     if (!element) {
       return element
     }

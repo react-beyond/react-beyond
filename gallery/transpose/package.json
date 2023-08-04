@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/transpose",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.15",
   "description": "React Beyond @react-beyond/transpose",
   "type": "module",
   "main": "transpose.js",

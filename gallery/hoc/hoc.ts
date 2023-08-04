@@ -14,7 +14,10 @@ type Opts =
 
 export const hoc = (opts: Opts) => (WrappedComponent) => {
   const fn = typeof opts === 'function' ? opts : opts.hoc
-  const id = typeof opts === 'function' ? 'hoc' : opts.id || 'hoc'
+  const id =
+    typeof opts === 'function'
+      ? opts.name || 'hoc'
+      : opts.id ?? opts.hoc.name ?? 'hoc'
 
   return beyond(WrappedComponent, { id, mapComponent: fn })
 }
