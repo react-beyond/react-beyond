@@ -1,14 +1,12 @@
 #!/bin/bash
 
 # Blacklist directories
-# blacklist=("deepValtio" "deepState")
-blacklist=("menu")
 blacklist=()
 
 npx tsc
 
 # Publish the main package
-npm version prerelease --preid=beta --no-git-tag-version
+# npm version prerelease --preid=beta --no-git-tag-version
 npm publish
 
 # Define the directory containing the packages
@@ -31,7 +29,7 @@ do
   # If not blacklisted, continue with the versioning and publishing
   cd "$package_dir"
 
-  npm version prerelease --preid=beta --no-git-tag-version
+  # npm version prerelease --preid=beta --no-git-tag-version
 
   # Publish the package
   npm publish

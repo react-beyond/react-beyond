@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/loader",
-  "version": "1.0.0-beta.16",
+  "version": "1.0.0-beta.28",
   "description": "React Beyond @react-beyond/loader",
   "type": "module",
   "main": "loader.js",
