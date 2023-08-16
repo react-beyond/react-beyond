@@ -2,4 +2,4 @@
 
 Supercharge React beyond component boundaries
 
-Read the docs at [https://react-beyond.github.io/](website).
+Read the docs at [the website](https://react-beyond.github.io/).
