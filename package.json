@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/react-beyond/react-beyond.git"
   },
-  "license": "ISC",
+  "license": "ISC with exception",
   "author": "sarimarton@gmail.com",
   "type": "module",
   "exports": {
