@@ -1,6 +1,6 @@
 {
   "name": "react-beyond",
-  "version": "1.0.0-beta.28",
+  "version": "1.0.0",
   "description": "Reaching beyond component boundaries",
   "keywords": [
     "react",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/react-beyond/react-beyond.git"
   },
-  "license": "ISC with exception",
+  "license": "ISC",
   "author": "sarimarton@gmail.com",
   "type": "module",
   "exports": {
