@@ -45,6 +45,11 @@ export type BeyondOptions = {
    */
   mapElement?: (element: ReactElement, directiveValue?: any) => ReactElement
   /**
+   * Function to filter the nodes to which the HOC should be applied. Useful for
+   * handling edge cases and create white or blacklists.
+   */
+  filterNodes?: (node: unknown) => boolean
+  /**
    * Function to map the JSX nodes. This is similar to mapElements,
    * - If `directiveProp` is set, `mapElement` will only be called when any of
    *   the directive props are set on the elements. `directiveValue` will hold
@@ -129,6 +134,10 @@ function applyHocToVdom(opts: BeyondOptions) {
   return function (
     element: React.ReactElement<PropsWithChildren> | any
   ): React.ReactElement {
+    if (opts.filterNodes && !opts.filterNodes(element)) {
+      return element
+    }
+
     if (opts.mapNode) {
       element = opts.mapNode(element)
     }
