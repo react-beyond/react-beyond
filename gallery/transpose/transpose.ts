@@ -1,6 +1,8 @@
 import React, { ReactElement, createElement } from 'react'
 import { beyond } from 'react-beyond'
 
+const refAsProp = !/^0|^1[5678]/.test(React.version)
+
 declare module 'react' {
   interface Attributes {
     'x-transpose'?: (self: ReactElement) => ReactElement
@@ -56,6 +58,7 @@ export const transpose =
 
         return createElement(wrapperEl.type, {
           ...wrapperEl.props,
+          ...(!refAsProp && el.ref && { key: el.ref }),
           ...(el.key && { key: el.key })
         })
       }

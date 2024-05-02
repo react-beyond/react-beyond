@@ -4,8 +4,10 @@
 //   "_clsx=\"([^\"]*)"
 // ],
 import _clsx, { ClassValue } from 'clsx'
-import { createElement } from 'react'
+import React, { createElement } from 'react'
 import { beyond } from 'react-beyond'
+
+const refAsProp = !/^0|^1[5678]/.test(React.version)
 
 declare module 'react' {
   interface Attributes {
@@ -36,6 +38,7 @@ export const clsx =
       mapElement: (el, directiveValue) => {
         return createElement(el.type, {
           ...el.props,
+          ...(!refAsProp && el.ref && { key: el.ref }),
           ...(el.key && { key: el.key }),
           className: _clsx(directiveValue, el.props.className)
         })

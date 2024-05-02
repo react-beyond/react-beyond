@@ -1,6 +1,8 @@
 import clsx from 'clsx'
-import { createElement } from 'react'
+import React, { createElement } from 'react'
 import { beyond } from 'react-beyond'
+
+const refAsProp = !/^0|^1[5678]/.test(React.version)
 
 declare module 'react' {
   interface Attributes {
@@ -71,6 +73,7 @@ export const classFor =
 
           el = createElement(el.type, {
             ...props,
+            ...(!refAsProp && el.ref && { key: el.ref }),
             ...(el.key && { key: el.key }),
             // The original react behavior is that class overrides className,
             // when it is not undefined or null. We want to preserve that
@@ -86,6 +89,7 @@ export const classFor =
 
           el = createElement(el.type, {
             ...props,
+            ...(!refAsProp && el.ref && { key: el.ref }),
             ...(el.key && { key: el.key }),
             ...(forVal != null && { htmlFor: forVal })
           })
