@@ -131,15 +131,11 @@ export const errorFallback =
         const fallback = getFallbackEl(name, el.props[prop])
 
         const { [prop]: omitted, ...props } = el.props
-        const ref = el.ref
         const key = el.key
 
         return (
           <ErrorBoundary {...(key && { key })} fallback={fallback}>
-            {createElement(el.type, {
-              ...props,
-              ...(ref && { ref })
-            })}
+            {createElement(el.type, props)}
           </ErrorBoundary>
         )
       }

@@ -67,7 +67,6 @@ export const ifElse =
 
           const newEl = createElement(el.type, {
             ...props,
-            ...(el.ref && { ref: el.ref }),
             ...(el.key && { key: el.key })
           })
 

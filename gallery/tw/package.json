@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/tw",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "React Beyond @react-beyond/tw",
   "type": "module",
   "main": "tw.js",

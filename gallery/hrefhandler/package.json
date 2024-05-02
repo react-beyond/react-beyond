@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/hrefhandler",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "React Beyond @react-beyond/hrefhandler",
   "type": "module",
   "main": "hrefhandler.js",

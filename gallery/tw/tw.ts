@@ -27,7 +27,6 @@ export const tw =
       mapElement: (el, directiveValue) => {
         return createElement(el.type, {
           ...el.props,
-          ...(el.ref && { ref: el.ref }),
           ...(el.key && { key: el.key }),
           // "class" takes precendence over "className", beacuse that's how it
           // it works in React (see https://reactjs.org/docs/dom-elements.html#classname)

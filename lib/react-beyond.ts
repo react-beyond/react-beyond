@@ -82,6 +82,8 @@ export type BeyondOptions = {
   experimentalKeyStrategy?: 'reactChildrenMap' | 'flatAndSpread' | 'validatedFlag'
 }
 
+const refAsProp = !/^0|^1[5678]/.test(React.version)
+
 const defaultChildrenKeyStrategy: BeyondOptions['experimentalKeyStrategy'] =
   'flatAndSpread'
 
@@ -218,7 +220,7 @@ function applyHocToVdom(opts: BeyondOptions) {
     )
 
     // @ts-ignore
-    const ref = element.ref
+    const ref = !refAsProp ? element.ref : undefined
     const key = element.key
 
     if (

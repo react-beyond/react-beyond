@@ -143,7 +143,6 @@ export const menu =
 
         const menu = directiveValue
 
-        const ref = el.ref
         const key = el.key
 
         const Cmp = el.type

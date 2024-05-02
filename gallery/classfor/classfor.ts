@@ -71,7 +71,6 @@ export const classFor =
 
           el = createElement(el.type, {
             ...props,
-            ...(el.ref && { ref: el.ref }),
             ...(el.key && { key: el.key }),
             // The original react behavior is that class overrides className,
             // when it is not undefined or null. We want to preserve that
@@ -87,7 +86,6 @@ export const classFor =
 
           el = createElement(el.type, {
             ...props,
-            ...(el.ref && { ref: el.ref }),
             ...(el.key && { key: el.key }),
             ...(forVal != null && { htmlFor: forVal })
           })

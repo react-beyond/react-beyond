@@ -36,7 +36,6 @@ export const clsx =
       mapElement: (el, directiveValue) => {
         return createElement(el.type, {
           ...el.props,
-          ...(el.ref && { ref: el.ref }),
           ...(el.key && { key: el.key }),
           className: _clsx(directiveValue, el.props.className)
         })

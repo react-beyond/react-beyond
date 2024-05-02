@@ -1,6 +1,6 @@
 {
   "name": "@react-beyond/tooltip",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "React Beyond @react-beyond/tooltip",
   "type": "module",
   "main": "tooltip.js",
