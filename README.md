@@ -2,6 +2,10 @@
 
 React Beyond lets you define higher-order components which recursively re-apply themselves on the child components. You can create features that are available to the entire tree. It opens up new exciting possibilities in React to create more intuitive code.
 
+## Important note on React 19
+
+react-beyond@1.1.1 supports React 19 and below. The example modules from the [Gallery](https://react-beyond.github.io/gallery) are version-synced with the main module, and they're React 19 ready too. But they're not backward compatible with React 18 and below. The reason for this is that the modules are actually example code, and it's not worth the overhead to maintain backward compatibility for them.
+
 ## Installation
 
 ```bash
